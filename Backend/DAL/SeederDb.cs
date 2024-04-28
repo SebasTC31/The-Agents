@@ -25,6 +25,7 @@ namespace Backend.DAL
             {
                 _context.Usuarios.Add(new Usuario
                 {
+                    Id = 1001686119,
                     Nombre = "Diego Valencia",
                     Telefono = 3172648467,
                     Correo = "diego.valencia@gmail.com",
@@ -36,6 +37,7 @@ namespace Backend.DAL
 
                 _context.Usuarios.Add(new Usuario
                 {
+                    Id = 21158515,
                     Nombre = "Sebastian Torres",
                     Telefono = 3002686842,
                     Correo = "sebas.torres@gmail.com",

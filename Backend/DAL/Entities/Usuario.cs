@@ -5,8 +5,7 @@ namespace Backend.DAL.Entities
     public class Usuario
     {
         [Key]
-        [Required]
-        public Guid Id { get; set; }
+        public long Id { get; set; }
         [Required]
         public string Nombre { get; set; }
         [Required]
