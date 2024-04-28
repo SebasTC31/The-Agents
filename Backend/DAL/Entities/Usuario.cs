@@ -6,7 +6,6 @@ namespace Backend.DAL.Entities
     {
         [Key]
         [Required]
-        [Display(Name = "Ticket use date.")]
         public Guid Id { get; set; }
         [Required]
         public string Nombre { get; set; }
