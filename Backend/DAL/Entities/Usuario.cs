@@ -22,5 +22,8 @@ namespace Backend.DAL.Entities
         [Required]
         public int Edad { get; set; }
 
+        public ICollection<Gerente> Gerentes { get; set; } //FK Relación uno a muchos
+        public ICollection<Empleado> Empleados { get; set; } //FK Relación uno a muchos
+
     }
 }

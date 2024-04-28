@@ -26,6 +26,8 @@ namespace Backend.DAL
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Usuario>().HasIndex(u => u.User).IsUnique();
+            modelBuilder.Entity<Usuario>().HasKey(g => new { g.Id, g.Gerentes });
+            modelBuilder.Entity<Usuario>().HasKey(e => new { e.Id, e.Empleados });
             modelBuilder.Entity<Factura>().HasKey(f => new { f.Id, f.IdServicio });
             modelBuilder.Entity<TelAcudiente>().HasKey(t => new { t.IdAcudiente, t.Telefono });
         }
