@@ -10,5 +10,6 @@ namespace Backend.DAL.Entities
         public string TipoEmpleado { get; set; }
         public string HoraInicio { get; set; }
         public string HoraFin { get; set; }
+        public ICollection<Usuario> Usuario { get; set; } //FK
     }
 }

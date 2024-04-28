@@ -21,7 +21,9 @@ namespace Backend.DAL.Entities
         public string Descripcion { get; set; }
         [Required]
         public string Estado { get; set; }
-        [Display(Name = "IdAcudiente")]
-        public ICollection<Acudiente> IdAcudiente { get; set; } //FK
+        [Required]
+        public long IdAcudiente { get; set; }
+        public ICollection<Acudiente> Acudiente { get; set; } //FK
+        public ICollection<Servicio> Servicio { get; set; } //FK
     }
 }

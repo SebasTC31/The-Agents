@@ -10,10 +10,11 @@ namespace Backend.DAL.Entities
         [Required]
         [Column(Order = 0)]
         public long IdAcudiente { get; set; }
-        public Acudiente Acudiente { get; set; }//Referencia de Acudiente
 
         [Key]
         [Column(Order = 1)]
         public long Telefono { get; set; }
+
+        public ICollection<Acudiente> Acudiente { get; set; } //FK Referencia de Acudiente
     }
 }
