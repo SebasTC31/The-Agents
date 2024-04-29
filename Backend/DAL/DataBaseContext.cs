@@ -28,6 +28,10 @@ namespace Backend.DAL
             modelBuilder.Entity<Usuario>().HasIndex(u => u.User).IsUnique();
             modelBuilder.Entity<Factura>().HasKey(f => new { f.Id, f.IdServicio });
             modelBuilder.Entity<TelAcudiente>().HasKey(t => new { t.IdAcudiente, t.Telefono });
+            modelBuilder.Entity<Empleado>().HasOne(e => e.Usuario).WithOne()
+                .HasForeignKey<Empleado>(e => e.UsuarioId).OnDelete(DeleteBehavior.NoAction);
+            modelBuilder.Entity<Gerente>().HasOne(g => g.Usuario).WithOne()
+                .HasForeignKey<Gerente>(g => g.UsuarioId).OnDelete(DeleteBehavior.NoAction);
         }
     }
 }
