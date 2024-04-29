@@ -2,12 +2,16 @@
 
 namespace Backend.DAL.Entities
 {
-    public class Gerente : Usuario
+    public class Gerente //: Usuario
     {
-        [Required] //FK
-        public long IdUsuario { get; set; }
+        //[Required] //FK
+        //public long IdUsuario { get; set; }
+        [Key]
+        public long Id { get; set; }
+        public long UsuarioId { get; set; }
+        public Usuario Usuario { get; set; }
         public DateTime FechaContrato { get; set; }
-        public ICollection<Usuario> Usuario { get; set; } //FK
+        //public ICollection<Usuario> Usuario { get; set; } //FK
 
     }
 }
