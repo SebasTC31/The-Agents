@@ -4,6 +4,7 @@ using Backend.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    partial class DataBaseContextModelSnapshot : ModelSnapshot
+    [Migration("20240430152442_TrialBd")]
+    partial class TrialBd
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,6 +24,24 @@ namespace Backend.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("AcudienteTelAcudiente", b =>
+                {
+                    b.Property<long>("AcudienteId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("TelAcudienteIdAcudiente")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("TelAcudienteTelefono")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("AcudienteId", "TelAcudienteIdAcudiente", "TelAcudienteTelefono");
+
+                    b.HasIndex("TelAcudienteIdAcudiente", "TelAcudienteTelefono");
+
+                    b.ToTable("AcudienteTelAcudiente");
+                });
 
             modelBuilder.Entity("Backend.DAL.Entities.Acudiente", b =>
                 {
@@ -363,6 +384,21 @@ namespace Backend.Migrations
                     b.ToTable("FacturaServicio");
                 });
 
+            modelBuilder.Entity("AcudienteTelAcudiente", b =>
+                {
+                    b.HasOne("Backend.DAL.Entities.Acudiente", null)
+                        .WithMany()
+                        .HasForeignKey("AcudienteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Backend.DAL.Entities.TelAcudiente", null)
+                        .WithMany()
+                        .HasForeignKey("TelAcudienteIdAcudiente", "TelAcudienteTelefono")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Backend.DAL.Entities.Acudiente", b =>
                 {
                     b.HasOne("Backend.DAL.Entities.Factura", null)
@@ -418,17 +454,6 @@ namespace Backend.Migrations
                     b.Navigation("Servicio");
                 });
 
-            modelBuilder.Entity("Backend.DAL.Entities.TelAcudiente", b =>
-                {
-                    b.HasOne("Backend.DAL.Entities.Acudiente", "Acudiente")
-                        .WithMany("TelAcudiente")
-                        .HasForeignKey("IdAcudiente")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Acudiente");
-                });
-
             modelBuilder.Entity("FacturaServicio", b =>
                 {
                     b.HasOne("Backend.DAL.Entities.Servicio", null)
@@ -447,8 +472,6 @@ namespace Backend.Migrations
             modelBuilder.Entity("Backend.DAL.Entities.Acudiente", b =>
                 {
                     b.Navigation("IdPaciente");
-
-                    b.Navigation("TelAcudiente");
                 });
 
             modelBuilder.Entity("Backend.DAL.Entities.Factura", b =>

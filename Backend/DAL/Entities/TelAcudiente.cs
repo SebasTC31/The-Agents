@@ -6,15 +6,16 @@ namespace Backend.DAL.Entities
 {
     public class TelAcudiente
     {
-        [Key]
+        //[Key]         Aquí estoy omitiendo la acción de PK, puesto que estoy deifniendo la llave compuesta en el modelBuilder
         [Required]
         [Column(Order = 0)]
         public long IdAcudiente { get; set; }
 
-        [Key]
+        //[Key]         Igualmente aquí se aplica la misma lógica
         [Column(Order = 1)]
         public long Telefono { get; set; }
 
-        public ICollection<Acudiente> Acudiente { get; set; } //FK Referencia de Acudiente
+        public Acudiente Acudiente { get; set; } //FK Referencia de Acudiente
+        //public ICollection<Acudiente> Acudiente { get; set; } //FK Referencia de Acudiente
     }
 }

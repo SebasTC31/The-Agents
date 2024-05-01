@@ -27,11 +27,25 @@ namespace Backend.DAL
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Usuario>().HasIndex(u => u.User).IsUnique();
             modelBuilder.Entity<Factura>().HasKey(f => new { f.Id, f.IdServicio });
+
             modelBuilder.Entity<TelAcudiente>().HasKey(t => new { t.IdAcudiente, t.Telefono });
+            modelBuilder.Entity<TelAcudiente>().HasOne(t => t.Acudiente)
+                .WithMany(a => a.TelAcudiente) // 1 Acudiente tiene muchos teléfonos
+                .HasForeignKey(t => t.IdAcudiente) // Definir FK
+                .OnDelete(DeleteBehavior.Cascade); // Si elimina 1 Acudiente, los números asociados, también se borrarán
+
             modelBuilder.Entity<Empleado>().HasOne(e => e.Usuario).WithOne()
                 .HasForeignKey<Empleado>(e => e.UsuarioId).OnDelete(DeleteBehavior.NoAction);
             modelBuilder.Entity<Gerente>().HasOne(g => g.Usuario).WithOne()
                 .HasForeignKey<Gerente>(g => g.UsuarioId).OnDelete(DeleteBehavior.NoAction);
+
+            //HasMany = Para muchos
+            //HasOne = Para 1 
+            //WithOne = Con 1
+            //WithMany = tener muchos
+
+            //llave va para factura no para servicio
+            //Servicio es estable, el que debe cambiar es factura
         }
     }
 }
