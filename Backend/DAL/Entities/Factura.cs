@@ -23,7 +23,7 @@ namespace Backend.DAL.Entities
         public string Estado { get; set; }
         [Required]
         public long IdAcudiente { get; set; }
-        public ICollection<Acudiente> Acudiente { get; set; } //FK
+        public Acudiente Acudiente { get; set; } //FK
         public ICollection<Servicio> Servicio { get; set; } //FK
     }
 }

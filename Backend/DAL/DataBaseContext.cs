@@ -26,13 +26,17 @@ namespace Backend.DAL
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Usuario>().HasIndex(u => u.User).IsUnique();
-            modelBuilder.Entity<Factura>().HasKey(f => new { f.Id, f.IdServicio });
 
-            modelBuilder.Entity<TelAcudiente>().HasKey(t => new { t.IdAcudiente, t.Telefono });
+            modelBuilder.Entity<TelAcudiente>().HasKey(t => new { t.IdAcudiente, t.Telefono }); //Definición de llaves PK compuestas
             modelBuilder.Entity<TelAcudiente>().HasOne(t => t.Acudiente)
-                .WithMany(a => a.TelAcudiente) // 1 Acudiente tiene muchos teléfonos
-                .HasForeignKey(t => t.IdAcudiente) // Definir FK
-                .OnDelete(DeleteBehavior.Cascade); // Si elimina 1 Acudiente, los números asociados, también se borrarán
+                .WithMany(a => a.TelAcudiente)                                                  // 1 Acudiente tiene muchos teléfonos
+                .HasForeignKey(t => t.IdAcudiente)                                              // Definir FK
+                .OnDelete(DeleteBehavior.Cascade);                                              // Si elimina 1 Acudiente, los números asociados, también se borrarán
+
+            modelBuilder.Entity<Factura>().HasKey(f => new { f.Id, f.IdServicio });             //Definición de llaves PK compuestas
+            modelBuilder.Entity<Factura>().HasMany(f => f.Servicio)                             // 1 factura tiene muchos servicios
+                .WithOne(s => s.Factura)                                                        // Los servicios asociados a una sola factura
+                .OnDelete(DeleteBehavior.NoAction);                                             // Si elimina 1 factura, los servicios asociados, también se borrarán
 
             modelBuilder.Entity<Empleado>().HasOne(e => e.Usuario).WithOne()
                 .HasForeignKey<Empleado>(e => e.UsuarioId).OnDelete(DeleteBehavior.NoAction);
@@ -43,9 +47,6 @@ namespace Backend.DAL
             //HasOne = Para 1 
             //WithOne = Con 1
             //WithMany = tener muchos
-
-            //llave va para factura no para servicio
-            //Servicio es estable, el que debe cambiar es factura
         }
     }
 }

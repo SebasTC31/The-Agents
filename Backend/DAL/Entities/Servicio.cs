@@ -20,8 +20,8 @@ namespace Backend.DAL.Entities
         public string PrescDiagnostico { get; set; } //Prescripcion del diagnostico
         [Display(Name = "IdEmpleado")]
         public ICollection<Empleado> IdEmpleado { get; set; } //FK
-        [Display(Name = "IdFactura")]
-        public ICollection<Factura> IdFactura { get; set; } //FK
+        public Factura Factura { get; set; } //FK
         public IEnumerable<Requiere> Requiere { get; set; }
+
     }
 }
