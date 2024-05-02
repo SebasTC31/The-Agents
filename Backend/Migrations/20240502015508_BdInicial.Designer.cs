@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    [Migration("20240501021955_CorrectFacturayServicio")]
-    partial class CorrectFacturayServicio
+    [Migration("20240502015508_BdInicial")]
+    partial class BdInicial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -314,10 +314,7 @@ namespace Backend.Migrations
             modelBuilder.Entity("Backend.DAL.Entities.Usuario", b =>
                 {
                     b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<string>("Clave")
                         .IsRequired()

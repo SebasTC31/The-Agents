@@ -1,10 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Backend.DAL.Entities
 {
     public class Usuario
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)] // Esto indica que no es una columna de identidad
         public long Id { get; set; }
         [Required]
         public string Nombre { get; set; }

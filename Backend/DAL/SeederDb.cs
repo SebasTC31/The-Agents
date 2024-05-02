@@ -15,6 +15,7 @@ namespace Backend.DAL
         {
             await _context.Database.EnsureCreatedAsync(); //Esta línea ayuda a poblar mi BD de forma automática
             await PoblarUsuariosAsync();
+            await PoblarServiciosAsync();
 
             await _context.SaveChangesAsync();
         }
@@ -48,7 +49,59 @@ namespace Backend.DAL
                 });
             }
         }
+
+        public async Task PoblarServiciosAsync()
+        {
+            if (!_context.Servicios.Any())
+            {
+                var servicios = new List<Servicio>
+                {
+                    new Servicio
+                    {
+                        Fecha = DateTime.Now,
+                        TipoServicio = "Consulta",
+                        Precio = 35000,
+                        Descripcion = "Consulta veterinaria estándar",
+                        CantServicio = 1
+                    },
+                    new Servicio
+                    {
+                        Fecha = DateTime.Now,
+                        TipoServicio = "Peluquería",
+                        Precio = 40000,
+                        Descripcion = "Corte de pelo y baño para mascotas",
+                        CantServicio = 1
+                    },
+                    new Servicio
+                    {
+                        Fecha = DateTime.Now,
+                        TipoServicio = "Baño General",
+                        Precio = 30000,
+                        Descripcion = "Baño y limpieza general para mascotas",
+                        CantServicio = 1
+                    },
+                    new Servicio
+                    {
+                        Fecha = DateTime.Now,
+                        TipoServicio = "Desparasitación",
+                        Precio = 20000,
+                        Descripcion = "Tratamiento para eliminar parásitos internos y externos",
+                        CantServicio = 1
+                    },
+                    new Servicio
+                    {
+                        Fecha = DateTime.Now,
+                        TipoServicio = "Vacunación",
+                        Precio = 35000,
+                        Descripcion = "Vacunación preventiva para mascotas",
+                        CantServicio = 1
+                    }
+                };
+
+                _context.Servicios.AddRange(servicios);
+            }
+        }
+
+
     }
-
-
 }

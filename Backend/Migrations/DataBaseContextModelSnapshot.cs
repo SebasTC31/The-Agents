@@ -311,10 +311,7 @@ namespace Backend.Migrations
             modelBuilder.Entity("Backend.DAL.Entities.Usuario", b =>
                 {
                     b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<string>("Clave")
                         .IsRequired()

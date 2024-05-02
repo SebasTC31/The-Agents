@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using Backend.DAL;
 using Backend.DAL.Entities;
-using DbUpdateException = Microsoft.EntityFrameworkCore.DbUpdateException;
 
 namespace Backend.Controllers
 {
