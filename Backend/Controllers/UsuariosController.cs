@@ -85,6 +85,28 @@ namespace Backend.Controllers
             return _context.Usuarios.Any(e => e.Id == id);
         }
 
+        [HttpPost("login")]
+        public async Task<IActionResult> Login(string usuario, string clave)
+        {
+            //Busca el usuario en la bd
+            var userFromDb = await _context.Usuarios.FirstOrDefaultAsync(u => u.User == usuario);
+
+            //si el usuario existe y la clave es correcta
+            if (userFromDb != null && userFromDb.Clave == clave)
+            {
+                return Ok(new { message = "Inicio de sesión exitoso" });
+            }
+            else
+            {
+                return Unauthorized(new { error = "Credenciales inválidas" });
+            }
+        }
+
+        [HttpPost("logout")]
+        public IActionResult Logout()
+        {
+            return Ok(new { message = "Cierre de sesión exitoso" });
+        }
+
     }
 }
-// Si este comentario aparece, significa que si se está enviando los cambios al hacer push.
