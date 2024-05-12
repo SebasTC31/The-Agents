@@ -228,16 +228,10 @@ namespace Backend.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<long>("IdProducto")
+                    b.Property<long>("ProductoId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("IdServicio")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("ProductoId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("ServicioId")
+                    b.Property<long>("ServicioId")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
@@ -393,11 +387,15 @@ namespace Backend.Migrations
                 {
                     b.HasOne("Backend.DAL.Entities.Producto", "Producto")
                         .WithMany("Requiere")
-                        .HasForeignKey("ProductoId");
+                        .HasForeignKey("ProductoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Backend.DAL.Entities.Servicio", "Servicio")
                         .WithMany("Requiere")
-                        .HasForeignKey("ServicioId");
+                        .HasForeignKey("ServicioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Producto");
 

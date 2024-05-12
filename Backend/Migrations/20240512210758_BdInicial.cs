@@ -207,10 +207,8 @@ namespace Backend.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    IdServicio = table.Column<long>(type: "bigint", nullable: false),
-                    ServicioId = table.Column<long>(type: "bigint", nullable: true),
-                    IdProducto = table.Column<long>(type: "bigint", nullable: false),
-                    ProductoId = table.Column<long>(type: "bigint", nullable: true)
+                    ServicioId = table.Column<long>(type: "bigint", nullable: false),
+                    ProductoId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -219,12 +217,14 @@ namespace Backend.Migrations
                         name: "FK_Requieres_Productos_ProductoId",
                         column: x => x.ProductoId,
                         principalTable: "Productos",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Requieres_Servicios_ServicioId",
                         column: x => x.ServicioId,
                         principalTable: "Servicios",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
