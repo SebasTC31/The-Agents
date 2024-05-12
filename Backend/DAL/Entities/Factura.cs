@@ -21,9 +21,9 @@ namespace Backend.DAL.Entities
         public string Descripcion { get; set; }
         [Required]
         public string Estado { get; set; }
-        [Required]
-        public long IdAcudiente { get; set; }
+        [ForeignKey("Acudiente")]
+        public long AcudienteId { get; set; }
         public Acudiente Acudiente { get; set; } //FK
-        public ICollection<Servicio> Servicio { get; set; } //FK
+        public ICollection<Servicio> Servicios { get; set; } //FK
     }
 }

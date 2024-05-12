@@ -25,10 +25,7 @@ namespace Backend.Migrations
             modelBuilder.Entity("Backend.DAL.Entities.Acudiente", b =>
                 {
                     b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<string>("Correo")
                         .IsRequired()
@@ -100,7 +97,7 @@ namespace Backend.Migrations
                         .HasColumnType("bigint")
                         .HasColumnOrder(1);
 
-                    b.Property<long?>("AcudienteId")
+                    b.Property<long>("AcudienteId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Descripcion")
@@ -113,9 +110,6 @@ namespace Backend.Migrations
 
                     b.Property<DateTime>("Fecha")
                         .HasColumnType("datetime2");
-
-                    b.Property<long>("IdAcudiente")
-                        .HasColumnType("bigint");
 
                     b.Property<string>("MetodoPago")
                         .IsRequired()
@@ -360,7 +354,9 @@ namespace Backend.Migrations
                 {
                     b.HasOne("Backend.DAL.Entities.Acudiente", "Acudiente")
                         .WithMany()
-                        .HasForeignKey("AcudienteId");
+                        .HasForeignKey("AcudienteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Acudiente");
                 });
@@ -405,7 +401,7 @@ namespace Backend.Migrations
             modelBuilder.Entity("Backend.DAL.Entities.Servicio", b =>
                 {
                     b.HasOne("Backend.DAL.Entities.Factura", "Factura")
-                        .WithMany("Servicio")
+                        .WithMany("Servicios")
                         .HasForeignKey("FacturaId", "FacturaIdServicio")
                         .OnDelete(DeleteBehavior.NoAction);
 
@@ -432,7 +428,7 @@ namespace Backend.Migrations
 
             modelBuilder.Entity("Backend.DAL.Entities.Factura", b =>
                 {
-                    b.Navigation("Servicio");
+                    b.Navigation("Servicios");
                 });
 
             modelBuilder.Entity("Backend.DAL.Entities.Producto", b =>

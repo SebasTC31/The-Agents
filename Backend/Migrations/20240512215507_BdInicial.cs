@@ -15,8 +15,7 @@ namespace Backend.Migrations
                 name: "Acudientes",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<long>(type: "bigint", nullable: false),
                     Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Direccion = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Correo = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -73,8 +72,7 @@ namespace Backend.Migrations
                     MetodoPago = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Estado = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IdAcudiente = table.Column<long>(type: "bigint", nullable: false),
-                    AcudienteId = table.Column<long>(type: "bigint", nullable: true)
+                    AcudienteId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -83,7 +81,8 @@ namespace Backend.Migrations
                         name: "FK_Facturas_Acudientes_AcudienteId",
                         column: x => x.AcudienteId,
                         principalTable: "Acudientes",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(

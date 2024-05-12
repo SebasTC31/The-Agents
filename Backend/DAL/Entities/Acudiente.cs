@@ -6,6 +6,7 @@ namespace Backend.DAL.Entities
     public class Acudiente
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public long Id { get; set; }
         [Required]
         public string Nombre { get; set; }
