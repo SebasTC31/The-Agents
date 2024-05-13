@@ -149,5 +149,114 @@ namespace Backend.DAL
                 _context.Productos.AddRange(productos);
             }
         }
+        private async Task PoblarEmpleadosYGerentesAsync()
+        {
+            if (!_context.Empleados.Any())
+            {
+                var gerentes = new List<Gerente>
+                {
+                    new Gerente
+                    {
+                        Id = 1000001,
+                        UsuarioId = 1000011, 
+                        FechaContrato = DateTime.Now.AddDays(-30) // Fecha de contrato para el primer gerente
+                    },
+                    new Gerente
+                    {
+                        Id = 1000002,
+                        UsuarioId = 1000012,
+                        FechaContrato = DateTime.Now.AddDays(-15) // Fecha de contrato para el segundo gerente
+                    }
+                };
+
+                _context.Gerentes.AddRange(gerentes);
+
+                var empleados = new List<Empleado>
+                {
+                    new Empleado
+                    {
+                        Id = 2000001,
+                        UsuarioId = 2000011, 
+                        Sueldo = 1500000, 
+                        TipoEmpleado = "Veterinario",
+                        HoraInicio = "08:00",
+                        HoraFin = "17:00",
+                        Usuario = new Usuario
+                        {
+                            Id = 2000021, 
+                            Nombre = "Juan Perez",
+                            Telefono = 3001234567,
+                            Correo = "juan.perez@gmail.com",
+                            User = "juan.perez",
+                            Clave = "1234",
+                            Sexo = 'M',
+                            Edad = 35
+                        }
+                    },
+                    new Empleado
+                    {
+                        Id = 2000002,
+                        UsuarioId = 2000012, 
+                        Sueldo = 1200000, 
+                        TipoEmpleado = "Auxiliar",
+                        HoraInicio = "09:00",
+                        HoraFin = "18:00",
+                        Usuario = new Usuario
+                        {
+                            Id = 2000022, 
+                            Nombre = "Maria Lopez",
+                            Telefono = 3109876543,
+                            Correo = "maria.lopez@gmail.com",
+                            User = "maria.lopez",
+                            Clave = "12345",
+                            Sexo = 'F',
+                            Edad = 28
+                        }
+                    },
+                    new Empleado
+                    {
+                        Id = 2000003,
+                        UsuarioId = 2000013,
+                        Sueldo = 1100000, 
+                        TipoEmpleado = "Recepcionista",
+                        HoraInicio = "07:00",
+                        HoraFin = "16:00",
+                        Usuario = new Usuario
+                        {
+                            Id = 2000023, 
+                            Nombre = "Carlos Ramirez",
+                            Telefono = 3155555555,
+                            Correo = "carlos.ramirez@gmail.com",
+                            User = "carlos.ramirez",
+                            Clave = "123456",
+                            Sexo = 'M',
+                            Edad = 30
+                        }
+                    },
+                    new Empleado
+                    {
+                        Id = 2000004,
+                        UsuarioId = 2000014,
+                        Sueldo = 1000000,
+                        TipoEmpleado = "Auxiliar",
+                        HoraInicio = "10:00",
+                        HoraFin = "19:00",
+                        Usuario = new Usuario
+                        {
+                            Id = 2000024, 
+                            Nombre = "Ana Martinez",
+                            Telefono = 3188888888,
+                            Correo = "ana.martinez@gmail.com",
+                            User = "ana.martinez",
+                            Clave = "1234567",
+                            Sexo = 'F',
+                            Edad = 25
+                        }
+                    }
+                };
+
+                _context.Empleados.AddRange(empleados);
+            }
+        }
     }
 }
