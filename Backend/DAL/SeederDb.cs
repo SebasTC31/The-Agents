@@ -101,7 +101,53 @@ namespace Backend.DAL
                 _context.Servicios.AddRange(servicios);
             }
         }
+        
+        public async Task PoblarProductosAsync()
+        {
+            if (!_context.Productos.Any())
+            {
+                var productos = new List<Producto>
+                {
+                    new Producto
+                    {
+                        Nombre = "Desparacitante",
+                        Precio = 15000,
+                        CantUso = 1,
+                        Descripcion = "Tratamiento para eliminar parásitos internos y externos"
+                    },
+                    new Producto
+                    {
+                        Nombre = "Vacuna pentavalente",
+                        Precio = 25000,
+                        CantUso = 1,
+                        Descripcion = "Vacuna que protege contra cinco enfermedades comunes en mascotas"
+                    },
+                    new Producto
+                    {
+                        Nombre = "Shampoo antipulgas",
+                        Precio = 12000,
+                        CantUso = 1,
+                        Descripcion = "Shampoo especializado para eliminar pulgas en mascotas"
+                    },
+                    new Producto
+                    {
+                        Nombre = "Loción canina o felina",
+                        Precio = 18000,
+                        CantUso = 1,
+                        Descripcion = "Loción para el cuidado de la piel en perros o gatos"
+                    },
+                    new Producto
+                    {
+                        Nombre = "Suero oral",
+                        Precio = 10000,
+                        CantUso = 1,
+                        Descripcion = "Suero para la rehidratación en casos de deshidratación en mascotas"
+                    }
 
+                };
 
+                _context.Productos.AddRange(productos);
+            }
+        }
     }
 }

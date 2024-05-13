@@ -26,5 +26,24 @@ namespace Backend.Controllers
 
             return servicios;
         }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Gerente>> GetGerente(long id)
+        {
+            var servicio = await _context.Servicios.FirstOrDefaultAsync(s => s.Id == id);
+
+            if (servicio == null) return NotFound();
+
+            return Ok(servicio);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<Gerente>> PostServicio(Servicio servicio)
+        {
+            _context.Servicios.Add(servicio);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(GetGerente), new { id = servicio.Id }, servicio);
+        }
     }
 }
