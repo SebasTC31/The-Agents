@@ -97,7 +97,7 @@ namespace Backend.Controllers
         [HttpGet("{id}/empleados")]
         public async Task<ActionResult<IEnumerable<Empleado>>> GetEmpleadosDelServicio(long id)
         {
-            var empleados = await _context.Empleados.Where(e => e.Servicios.Any(s => s.Id == id)).ToListAsync();
+            var empleados = await _context.Empleados.Where(e => e.Servicio.Any(s => s.Id == id)).ToListAsync();
 
             if (empleados == null)
             {

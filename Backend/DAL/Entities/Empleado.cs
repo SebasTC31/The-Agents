@@ -14,6 +14,7 @@ namespace Backend.DAL.Entities
         public string TipoEmpleado { get; set; }
         public string HoraInicio { get; set; }
         public string HoraFin { get; set; }
+        public ICollection<Servicio> Servicio { get; set; } //FK // Relación con Servicios
         //public ICollection<Usuario> Usuario { get; set; } //FK
         //public Usuario Usuario { get; set; } //FK Relación 1 a 1 (propiedad de navegación)
     }
