@@ -258,5 +258,80 @@ namespace Backend.DAL
                 _context.Empleados.AddRange(empleados);
             }
         }
+
+        public async Task PoblarPacientesAsync()
+        {
+            if (!_context.Pacientes.Any())
+            {
+                var pacientes = new List<Paciente>
+                {
+                    new Paciente
+                    {
+                        Nombre = "Luna",
+                        Edad = 3,
+                        Sexo = 'H',
+                        Peso = 12.5f,
+                        Raza = "Labrador Retriever",
+                        TipoAnimal = "Perro"
+                    },
+                    new Paciente
+                    {
+                        Nombre = "Simba",
+                        Edad = 2,
+                        Sexo = 'M',
+                        Peso = 7.8f,
+                        Raza = "Persa",
+                        TipoAnimal = "Gato"
+                    },
+                    new Paciente
+                    {
+                        Nombre = "Rocky",
+                        Edad = 5,
+                        Sexo = 'M',
+                        Peso = 20.3f,
+                        Raza = "Bulldog",
+                        TipoAnimal = "Perro"
+                    },
+                    new Paciente
+                    {
+                        Nombre = "Coco",
+                        Edad = 1,
+                        Sexo = 'H',
+                        Peso = 4.2f,
+                        Raza = "Siames",
+                        TipoAnimal = "Gato"
+                    },
+                    new Paciente
+                    {
+                        Nombre = "Milo",
+                        Edad = 6,
+                        Sexo = 'M',
+                        Peso = 9.7f,
+                        Raza = "Yorkshire Terrier",
+                        TipoAnimal = "Perro"
+                    },
+                    new Paciente
+                    {
+                        Nombre = "Bella",
+                        Edad = 4,
+                        Sexo = 'H',
+                        Peso = 15.6f,
+                        Raza = "Golden Retriever",
+                        TipoAnimal = "Perro"
+                    },
+                    new Paciente
+                    {
+                        Nombre = "Luna",
+                        Edad = 2,
+                        Sexo = 'H',
+                        Peso = 6.3f,
+                        Raza = "Ragdoll",
+                        TipoAnimal = "Gato"
+                    }
+                };
+
+                _context.Pacientes.AddRange(pacientes);
+            }
+        }
     }
 }
