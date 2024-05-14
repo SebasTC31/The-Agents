@@ -30,7 +30,8 @@ namespace Backend.Controllers
             }
 
             return productos;
-        }
+        } 
+
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Producto>> GetProductoById(long id)
