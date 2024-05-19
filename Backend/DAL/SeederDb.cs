@@ -16,7 +16,10 @@ namespace Backend.DAL
             await _context.Database.EnsureCreatedAsync(); //Esta línea ayuda a poblar mi BD de forma automática
             await PoblarUsuariosAsync();
             await PoblarServiciosAsync();
+            await PoblarGerentesAsync();
+            await PoblarEmpleadosAsync();
             await PoblarPacientesAsync();
+
             await _context.SaveChangesAsync();
         }
 
@@ -50,7 +53,7 @@ namespace Backend.DAL
             }
         }
 
-        public async Task PoblarServiciosAsync()
+        private async Task PoblarServiciosAsync()       // public async Task PoblarServiciosAsync()         Usar como mejor se adecue, se hace cambio para que quede como "private"
         {
             if (!_context.Servicios.Any())
             {
@@ -149,109 +152,181 @@ namespace Backend.DAL
                 _context.Productos.AddRange(productos);
             }
         }
-        private async Task PoblarEmpleadosYGerentesAsync()
+        private async Task PoblarGerentesAsync()
         {
-            if (!_context.Empleados.Any())
+            if (!_context.Gerentes.Any())
             {
+                var usuarios = new List<Usuario>
+                {
+                    new Usuario
+                    {
+                        Id = 1001686120,
+                        Nombre = "Maira Liseth",
+                        Telefono = 3172648468,
+                        Correo = "maira.liseth@gmail.com",
+                        User = "maira.liseth",
+                        Clave = "1234",
+                        Sexo = 'F',
+                        Edad = 30
+                    },
+                    new Usuario
+                    {
+                        Id = 1001686121,
+                        Nombre = "Diego Valencia",
+                        Telefono = 3172648469,
+                        Correo = "diego.valencia2@gmail.com",
+                        User = "diego.valencia2",
+                        Clave = "1234",
+                        Sexo = 'M',
+                        Edad = 25
+                    },
+                    new Usuario
+                    {
+                        Id = 1001686122,
+                        Nombre = "Sebastián Torres",
+                        Telefono = 3172648470,
+                        Correo = "sebastian.torres2@gmail.com",
+                        User = "sebastian.torres2",
+                        Clave = "12345",
+                        Sexo = 'M',
+                        Edad = 28
+                    },
+                    new Usuario
+                    {
+                        Id = 1001686123,
+                        Nombre = "Meyer Usuga",
+                        Telefono = 3172648471,
+                        Correo = "meyer.usuga@gmail.com",
+                        User = "meyer.usuga",
+                        Clave = "1234",
+                        Sexo = 'M',
+                        Edad = 35
+                    }
+                };
+
+                _context.Usuarios.AddRange(usuarios);
+                await _context.SaveChangesAsync();
+
                 var gerentes = new List<Gerente>
                 {
                     new Gerente
                     {
-                        Id = 1000001,
-                        UsuarioId = 1000011, 
-                        FechaContrato = DateTime.Now.AddDays(-30) // Fecha de contrato para el primer gerente
+                        Id = 1,
+                        UsuarioId = 1001686120,
+                        FechaContrato = DateTime.Now
                     },
                     new Gerente
                     {
-                        Id = 1000002,
-                        UsuarioId = 1000012,
-                        FechaContrato = DateTime.Now.AddDays(-15) // Fecha de contrato para el segundo gerente
+                        Id = 2,
+                        UsuarioId = 1001686121,
+                        FechaContrato = DateTime.Now
+                    },
+                    new Gerente
+                    {
+                        Id = 3,
+                        UsuarioId = 1001686122,
+                        FechaContrato = DateTime.Now
+                    },
+                    new Gerente
+                    {
+                        Id = 4,
+                        UsuarioId = 1001686123,
+                        FechaContrato = DateTime.Now
                     }
                 };
 
                 _context.Gerentes.AddRange(gerentes);
+            }
+        }
+
+        private async Task PoblarEmpleadosAsync()
+        {
+            if (!_context.Empleados.Any())
+            {
+                var usuarios = new List<Usuario>
+                {
+                    new Usuario
+                    {
+                        Id = 1001686124,
+                        Nombre = "Estefanía Alvarez",
+                        Telefono = 3172648472,
+                        Correo = "estefania.alvarez@gmail.com",
+                        User = "estefania.alvarez",
+                        Clave = "1234",
+                        Sexo = 'F',
+                        Edad = 22
+                    },
+                    new Usuario
+                    {
+                        Id = 1001686125,
+                        Nombre = "Ariana Granade",
+                        Telefono = 3172648473,
+                        Correo = "ariana.granade@gmail.com",
+                        User = "ariana.granade",
+                        Clave = "1234",
+                        Sexo = 'F',
+                        Edad = 27
+                    },
+                    new Usuario
+                    {
+                        Id = 1001686126,
+                        Nombre = "Inés Perado",
+                        Telefono = 3172648474,
+                        Correo = "ines.perado@gmail.com",
+                        User = "ines.perado",
+                        Clave = "1234",
+                        Sexo = 'F',
+                        Edad = 29
+                    },
+                    new Usuario
+                    {
+                        Id = 1001686127,
+                        Nombre = "Rosa Margarita Flores de Ramos",
+                        Telefono = 3172648475,
+                        Correo = "rosa.margarita@gmail.com",
+                        User = "rosa.margarita",
+                        Clave = "1234",
+                        Sexo = 'F',
+                        Edad = 32
+                    }
+                };
+
+                _context.Usuarios.AddRange(usuarios);
+                await _context.SaveChangesAsync();
 
                 var empleados = new List<Empleado>
                 {
                     new Empleado
                     {
-                        Id = 2000001,
-                        UsuarioId = 2000011, 
-                        Sueldo = 1500000, 
-                        TipoEmpleado = "Veterinario",
+                        Id = 1,
+                        UsuarioId = 1001686124,
                         HoraInicio = "08:00",
                         HoraFin = "17:00",
-                        Usuario = new Usuario
-                        {
-                            Id = 2000021, 
-                            Nombre = "Juan Perez",
-                            Telefono = 3001234567,
-                            Correo = "juan.perez@gmail.com",
-                            User = "juan.perez",
-                            Clave = "1234",
-                            Sexo = 'M',
-                            Edad = 35
-                        }
+                        TipoEmpleado = "Recepcionista"
                     },
                     new Empleado
                     {
-                        Id = 2000002,
-                        UsuarioId = 2000012, 
-                        Sueldo = 1200000, 
-                        TipoEmpleado = "Auxiliar",
+                        Id = 2,
+                        UsuarioId = 1001686125,
                         HoraInicio = "09:00",
                         HoraFin = "18:00",
-                        Usuario = new Usuario
-                        {
-                            Id = 2000022, 
-                            Nombre = "Maria Lopez",
-                            Telefono = 3109876543,
-                            Correo = "maria.lopez@gmail.com",
-                            User = "maria.lopez",
-                            Clave = "12345",
-                            Sexo = 'F',
-                            Edad = 28
-                        }
+                        TipoEmpleado = "Veterinario"
                     },
                     new Empleado
                     {
-                        Id = 2000003,
-                        UsuarioId = 2000013,
-                        Sueldo = 1100000, 
-                        TipoEmpleado = "Recepcionista",
-                        HoraInicio = "07:00",
-                        HoraFin = "16:00",
-                        Usuario = new Usuario
-                        {
-                            Id = 2000023, 
-                            Nombre = "Carlos Ramirez",
-                            Telefono = 3155555555,
-                            Correo = "carlos.ramirez@gmail.com",
-                            User = "carlos.ramirez",
-                            Clave = "123456",
-                            Sexo = 'M',
-                            Edad = 30
-                        }
-                    },
-                    new Empleado
-                    {
-                        Id = 2000004,
-                        UsuarioId = 2000014,
-                        Sueldo = 1000000,
-                        TipoEmpleado = "Auxiliar",
+                        Id = 3,
+                        UsuarioId = 1001686126,
                         HoraInicio = "10:00",
                         HoraFin = "19:00",
-                        Usuario = new Usuario
-                        {
-                            Id = 2000024, 
-                            Nombre = "Ana Martinez",
-                            Telefono = 3188888888,
-                            Correo = "ana.martinez@gmail.com",
-                            User = "ana.martinez",
-                            Clave = "1234567",
-                            Sexo = 'F',
-                            Edad = 25
-                        }
+                        TipoEmpleado = "Auxiliar"
+                    },
+                    new Empleado
+                    {
+                        Id = 4,
+                        UsuarioId = 1001686127,
+                        HoraInicio = "07:00",
+                        HoraFin = "16:00",
+                        TipoEmpleado = "Encargada de Limpieza"
                     }
                 };
 
