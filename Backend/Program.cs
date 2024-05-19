@@ -21,6 +21,14 @@ builder.Services.AddTransient<SeederDb>();
 builder.Services.AddControllers().AddJsonOptions(x =>
                 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("frontendCors", App =>
+    {
+        App.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+    });
+});
+
 var app = builder.Build();
 
 //Esto me llama el método SeederAsync() para poder poblar las tablas al momento de correr la app.
@@ -42,6 +50,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("frontendCors");
 
 app.UseAuthorization();
 
