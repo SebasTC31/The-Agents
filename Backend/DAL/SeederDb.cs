@@ -16,7 +16,7 @@ namespace Backend.DAL
             await _context.Database.EnsureCreatedAsync(); //Esta línea ayuda a poblar mi BD de forma automática
             await PoblarUsuariosAsync();
             await PoblarServiciosAsync();
-            //await PoblarGerentesAsync();
+            await PoblarGerentesAsync();
             //await PoblarEmpleadosAsync();
             await PoblarPacientesAsync();
             await PoblarProductosAsync();
@@ -75,6 +75,54 @@ namespace Backend.DAL
                     Clave = "1234",
                     Sexo = 'M',
                     Edad = 35
+                });
+
+                _context.Usuarios.Add(new Usuario
+                {
+                    Id = 1001686124,
+                    Nombre = "Estefanía Alvarez",
+                    Telefono = 3172648472,
+                    Correo = "estefania.alvarez@gmail.com",
+                    User = "estefania.alvarez",
+                    Clave = "1234",
+                    Sexo = 'F',
+                    Edad = 22
+                });
+
+                _context.Usuarios.Add(new Usuario
+                {
+                    Id = 1001686125,
+                    Nombre = "Ariana Granade",
+                    Telefono = 3172648473,
+                    Correo = "ariana.granade@gmail.com",
+                    User = "ariana.granade",
+                    Clave = "1234",
+                    Sexo = 'F',
+                    Edad = 27
+                });
+
+                _context.Usuarios.Add(new Usuario
+                {
+                    Id = 1001686126,
+                    Nombre = "Inés Perado",
+                    Telefono = 3172648474,
+                    Correo = "ines.perado@gmail.com",
+                    User = "ines.perado",
+                    Clave = "1234",
+                    Sexo = 'F',
+                    Edad = 29
+                });
+
+                _context.Usuarios.Add(new Usuario
+                {
+                    Id = 1001686127,
+                    Nombre = "Rosa Margarita Flores de Ramos",
+                    Telefono = 3172648475,
+                    Correo = "rosa.margarita@gmail.com",
+                    User = "rosa.margarita",
+                    Clave = "1234",
+                    Sexo = 'F',
+                    Edad = 32
                 });
             }
         }
@@ -215,62 +263,10 @@ namespace Backend.DAL
         {
             if (!_context.Empleados.Any())
             {
-                var usuarios = new List<Usuario>
-                {
-                    new Usuario
-                    {
-                        Id = 1001686124,
-                        Nombre = "Estefanía Alvarez",
-                        Telefono = 3172648472,
-                        Correo = "estefania.alvarez@gmail.com",
-                        User = "estefania.alvarez",
-                        Clave = "1234",
-                        Sexo = 'F',
-                        Edad = 22
-                    },
-                    new Usuario
-                    {
-                        Id = 1001686125,
-                        Nombre = "Ariana Granade",
-                        Telefono = 3172648473,
-                        Correo = "ariana.granade@gmail.com",
-                        User = "ariana.granade",
-                        Clave = "1234",
-                        Sexo = 'F',
-                        Edad = 27
-                    },
-                    new Usuario
-                    {
-                        Id = 1001686126,
-                        Nombre = "Inés Perado",
-                        Telefono = 3172648474,
-                        Correo = "ines.perado@gmail.com",
-                        User = "ines.perado",
-                        Clave = "1234",
-                        Sexo = 'F',
-                        Edad = 29
-                    },
-                    new Usuario
-                    {
-                        Id = 1001686127,
-                        Nombre = "Rosa Margarita Flores de Ramos",
-                        Telefono = 3172648475,
-                        Correo = "rosa.margarita@gmail.com",
-                        User = "rosa.margarita",
-                        Clave = "1234",
-                        Sexo = 'F',
-                        Edad = 32
-                    }
-                };
-
-                _context.Usuarios.AddRange(usuarios);
-                await _context.SaveChangesAsync();
-
                 var empleados = new List<Empleado>
                 {
                     new Empleado
                     {
-                        Id = 1,
                         UsuarioId = 1001686124,
                         HoraInicio = "08:00",
                         HoraFin = "17:00",
@@ -278,7 +274,6 @@ namespace Backend.DAL
                     },
                     new Empleado
                     {
-                        Id = 2,
                         UsuarioId = 1001686125,
                         HoraInicio = "09:00",
                         HoraFin = "18:00",
@@ -286,7 +281,6 @@ namespace Backend.DAL
                     },
                     new Empleado
                     {
-                        Id = 3,
                         UsuarioId = 1001686126,
                         HoraInicio = "10:00",
                         HoraFin = "19:00",
@@ -294,7 +288,6 @@ namespace Backend.DAL
                     },
                     new Empleado
                     {
-                        Id = 4,
                         UsuarioId = 1001686127,
                         HoraInicio = "07:00",
                         HoraFin = "16:00",
@@ -303,6 +296,7 @@ namespace Backend.DAL
                 };
 
                 _context.Empleados.AddRange(empleados);
+                await _context.SaveChangesAsync();
             }
         }
 

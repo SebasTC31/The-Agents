@@ -31,7 +31,7 @@ namespace Backend.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Gerente>> GetGerente(long id)
+        public async Task<ActionResult<Servicio>> GetServiciosById(long id)
         {
             var servicio = await _context.Servicios.FirstOrDefaultAsync(s => s.Id == id);
 
@@ -46,7 +46,7 @@ namespace Backend.Controllers
             _context.Servicios.Add(servicio);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetGerente), new { id = servicio.Id }, servicio);
+            return CreatedAtAction(nameof(GetServiciosById), new { id = servicio.Id }, servicio);
         }
 
         [HttpPut("{id}")]
@@ -118,19 +118,6 @@ namespace Backend.Controllers
             }
 
             return factura;
-        }
-
-        [HttpGet("{id}/requerimientos")]
-        public async Task<ActionResult<IEnumerable<Requiere>>> GetRequerimientosDelServicio(long id)
-        {
-            var requerimientos = await _context.Requieres.Where(r => r.ServicioId == id).ToListAsync();
-
-            if (requerimientos == null)
-            {
-                return NotFound();
-            }
-
-            return requerimientos;
         }
 
         private bool ServicioExists(long id)

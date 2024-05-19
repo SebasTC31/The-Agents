@@ -94,7 +94,26 @@ namespace Backend.Controllers
             //si el usuario existe y la clave es correcta
             if (userFromDb != null && userFromDb.Clave == clave)
             {
-                return Ok(new { message = "Inicio de sesión exitoso" });
+                //empleado
+                var empleado = await _context.Empleados.FirstOrDefaultAsync(e => e.UsuarioId == userFromDb.Id);
+
+                //gerente
+                var gerente = await _context.Gerentes.FirstOrDefaultAsync(g => g.UsuarioId == userFromDb.Id);
+
+                if (empleado != null)
+                {
+                    return Ok(new { message = "Empleado" });
+                }
+                else if (gerente != null)
+                {
+                    return Ok(new { message = "Gerente" });
+                }
+                else
+                {
+                    return Unauthorized(new { error = "Usuario no registrado" + empleado + "--" + gerente });
+                }
+                
+                //return Ok(new { message = "Inicio de sesión exitoso" });
             }
             else
             {
