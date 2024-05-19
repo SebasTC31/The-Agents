@@ -18,7 +18,7 @@ namespace Backend.DAL.Entities
         public string Raza { get; set;}
         [Required]
         public string TipoAnimal { get; set;}
-        public ICollection<Servicio> Servicios { get; set; }
+        //public ICollection<Servicio> Servicios { get; set; }
 
     }
 }
