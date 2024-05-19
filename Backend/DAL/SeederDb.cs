@@ -20,6 +20,7 @@ namespace Backend.DAL
             //await PoblarEmpleadosAsync();
             await PoblarPacientesAsync();
             await PoblarProductosAsync();
+            await PoblarAcudientesAsync();
 
             await _context.SaveChangesAsync();
         }
@@ -377,6 +378,64 @@ namespace Backend.DAL
                 };
 
                 _context.Pacientes.AddRange(pacientes);
+            }
+        }
+
+        private async Task PoblarAcudientesAsync()
+        {
+            if (!_context.Acudientes.Any())
+            {
+                var pacientes = _context.Pacientes.ToList();
+                var acudientes = new List<Acudiente>
+                {
+                    new Acudiente
+                    {
+                        Id = 1001686128,
+                        Nombre = "Lucia Nuro",
+                        Direccion = "Calle 123 #45-67",
+                        Correo = "lucia.nuro@gmail.com",
+                        Sexo = 'F',
+                        Edad = 40,
+                        IdPaciente = new List<Paciente> { pacientes[0] }, // Relacionando con el primer paciente
+                        TelAcudiente = new List<TelAcudiente>
+                        {
+                            new TelAcudiente { Telefono = 3172648476 },
+                            new TelAcudiente { Telefono = 3172648477 }
+                        }
+                    },
+                    new Acudiente
+                    {
+                        Id = 1001686129,
+                        Nombre = "Rihanna Álvarez",
+                        Direccion = "Calle 234 #56-78",
+                        Correo = "rihanna.alvarez@gmail.com",
+                        Sexo = 'F',
+                        Edad = 35,
+                        IdPaciente = new List<Paciente> { pacientes[1] }, // Relacionando con el segundo paciente
+                        TelAcudiente = new List<TelAcudiente>
+                        {
+                            new TelAcudiente { Telefono = 3172648478 },
+                            new TelAcudiente { Telefono = 3172648479 }
+                        }
+                    },
+                    new Acudiente
+                    {
+                        Id = 1001686130,
+                        Nombre = "Camilo Alzate",
+                        Direccion = "Calle 345 #67-89",
+                        Correo = "camilo.alzate@gmail.com",
+                        Sexo = 'M',
+                        Edad = 38,
+                        IdPaciente = new List<Paciente> { pacientes[2] }, // Relacionando con el tercer paciente
+                        TelAcudiente = new List<TelAcudiente>
+                        {
+                            new TelAcudiente { Telefono = 3172648480 },
+                            new TelAcudiente { Telefono = 3172648481 }
+                        }
+                    }
+                };
+
+                _context.Acudientes.AddRange(acudientes);
             }
         }
     }
