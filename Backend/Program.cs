@@ -21,6 +21,7 @@ builder.Services.AddTransient<SeederDb>();
 builder.Services.AddControllers().AddJsonOptions(x =>
                 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
+//Coniguramos cors para conexión sin conflictos en el frontend
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("frontendCors", App =>
