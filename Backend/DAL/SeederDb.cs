@@ -16,9 +16,6 @@ namespace Backend.DAL
             await _context.Database.EnsureCreatedAsync(); //Esta línea ayuda a poblar mi BD de forma automática
             await PoblarUsuariosAsync();
             await PoblarServiciosAsync();
-            await PoblarProductosAsync();
-            await PoblarEmpleadosYGerentesAsync();
-            await PoblarPacientesAsync();
 
             await _context.SaveChangesAsync();
         }
