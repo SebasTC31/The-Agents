@@ -17,7 +17,7 @@ namespace Backend.DAL
             await PoblarUsuariosAsync();
             await PoblarServiciosAsync();
             await PoblarGerentesAsync();
-            //await PoblarEmpleadosAsync();
+            await PoblarEmpleadosAsync();
             await PoblarPacientesAsync();
             await PoblarProductosAsync();
             await PoblarAcudientesAsync();
@@ -270,7 +270,18 @@ namespace Backend.DAL
                         UsuarioId = 1001686124,
                         HoraInicio = "08:00",
                         HoraFin = "17:00",
-                        TipoEmpleado = "Recepcionista"
+                        TipoEmpleado = "Recepcionista",
+                        Usuario =
+                        {
+                            Id = 1001686124,
+                            Nombre = "Estefanía Alvarez",
+                            Telefono = 3172648472,
+                            Correo = "estefania.alvarez@gmail.com",
+                            User = "estefania.alvarez",
+                            Clave = "1234",
+                            Sexo = 'F',
+                            Edad = 22
+                        }
                     },
                     new Empleado
                     {
