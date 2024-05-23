@@ -1,4 +1,5 @@
 ﻿using Backend.DAL.Entities;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics.Metrics;
 
 namespace Backend.DAL
@@ -21,6 +22,7 @@ namespace Backend.DAL
             await PoblarPacientesAsync();
             await PoblarProductosAsync();
             await PoblarAcudientesAsync();
+            await PoblarFacturasAsync();
 
             await _context.SaveChangesAsync();
         }
@@ -441,6 +443,51 @@ namespace Backend.DAL
                 };
 
                 _context.Acudientes.AddRange(acudientes);
+            }
+        }
+
+        private async Task PoblarFacturasAsync()
+        {
+            if (!_context.Facturas.Any())
+            {
+                var acudientes = await _context.Acudientes.ToListAsync();
+                var servicios = await _context.Servicios.ToListAsync();
+
+                var facturas = new List<Factura>
+                {
+                    new Factura
+                    {
+                        Fecha = DateTime.Now,
+                        ValorTotal = 150000, 
+                        MetodoPago = "Efectivo",
+                        Descripcion = "Consulta y vacunación para mascota",
+                        Estado = "Pendiente",
+                        AcudienteId = acudientes[0].Id, // Asignar el ID del primer acudiente
+                        Servicios = new List<Servicio>{ servicios[0], servicios[4] } // Asignar servicios para esta factura
+                    },
+                    new Factura
+                    {
+                        Fecha = DateTime.Now,
+                        ValorTotal = 85000, 
+                        MetodoPago = "Tarjeta",
+                        Descripcion = "Baño y corte de pelo para mascota",
+                        Estado = "Pagada",
+                        AcudienteId = acudientes[1].Id, // Asignar el ID del segundo acudiente
+                        Servicios = new List<Servicio>{ servicios[1] } // Asignar servicios para esta factura
+                    },
+                    new Factura
+                    {
+                        Fecha = DateTime.Now,
+                        ValorTotal = 200000,
+                        MetodoPago = "Transferencia",
+                        Descripcion = "Consulta y desparasitación para mascota",
+                        Estado = "Pagada",
+                        AcudienteId = acudientes[2].Id, // Asignar el ID del tercer acudiente
+                        Servicios = new List<Servicio>{ servicios[0], servicios[3] } // Asignar servicios para esta factura
+                    }
+                };
+                _context.Facturas.AddRange(facturas);
+                await _context.SaveChangesAsync();
             }
         }
     }
