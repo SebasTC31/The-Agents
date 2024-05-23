@@ -374,6 +374,7 @@ namespace Backend.DAL
                 };
 
                 _context.Pacientes.AddRange(pacientes);
+                await _context.SaveChangesAsync();
             }
         }
 
@@ -432,6 +433,7 @@ namespace Backend.DAL
                 };
 
                 _context.Acudientes.AddRange(acudientes);
+                await _context.SaveChangesAsync();
             }
         }
 
@@ -442,42 +444,52 @@ namespace Backend.DAL
                 var acudientes = await _context.Acudientes.ToListAsync();
                 var servicios = await _context.Servicios.ToListAsync();
 
-                var facturas = new List<Factura>
+                var factura1 = new Factura
                 {
-                    new Factura
-                    {
-                        Fecha = DateTime.Now,
-                        ValorTotal = 150000, 
-                        MetodoPago = "Efectivo",
-                        Descripcion = "Consulta y vacunación para mascota",
-                        Estado = "Pendiente",
-                        AcudienteId = acudientes[0].Id, // Asignar el ID del primer acudiente
-                        Servicios = new List<Servicio>{ servicios[0], servicios[4] } // Asignar servicios para esta factura
-                    },
-                    new Factura
-                    {
-                        Fecha = DateTime.Now,
-                        ValorTotal = 85000, 
-                        MetodoPago = "Tarjeta",
-                        Descripcion = "Baño y corte de pelo para mascota",
-                        Estado = "Pagada",
-                        AcudienteId = acudientes[1].Id, // Asignar el ID del segundo acudiente
-                        Servicios = new List<Servicio>{ servicios[1] } // Asignar servicios para esta factura
-                    },
-                    new Factura
-                    {
-                        Fecha = DateTime.Now,
-                        ValorTotal = 200000,
-                        MetodoPago = "Transferencia",
-                        Descripcion = "Consulta y desparasitación para mascota",
-                        Estado = "Pagada",
-                        AcudienteId = acudientes[2].Id, // Asignar el ID del tercer acudiente
-                        Servicios = new List<Servicio>{ servicios[0], servicios[3] } // Asignar servicios para esta factura
-                    }
+                    Id = 1,
+                    IdServicio = servicios[0].Id,
+                    Fecha = DateTime.Now,
+                    ValorTotal = 150000,
+                    MetodoPago = "Efectivo",
+                    Descripcion = "Consulta y vacunación para mascota",
+                    Estado = "Pendiente",
+                    Acudiente = acudientes[0],
+                    Servicios = new List<Servicio> { servicios[0], servicios[4] }
                 };
-                _context.Facturas.AddRange(facturas);
+
+                var factura2 = new Factura
+                {
+                    Id = 1,
+                    IdServicio = servicios[1].Id,
+                    Fecha = DateTime.Now,
+                    ValorTotal = 85000,
+                    MetodoPago = "Tarjeta",
+                    Descripcion = "Baño y corte de pelo para mascota",
+                    Estado = "Pagada",
+                    Acudiente = acudientes[1], 
+                    Servicios = new List<Servicio> { servicios[1] }
+                };
+
+                var factura3 = new Factura
+                {
+                    Id = 1,
+                    IdServicio = servicios[2].Id,
+                    Fecha = DateTime.Now,
+                    ValorTotal = 200000,
+                    MetodoPago = "Transferencia",
+                    Descripcion = "Consulta y desparasitación para mascota",
+                    Estado = "Pagada",
+                    Acudiente = acudientes[2], 
+                    Servicios = new List<Servicio> { servicios[0], servicios[3] }
+                };
+
+                _context.Facturas.Add(factura1);
+                _context.Facturas.Add(factura2);
+                _context.Facturas.Add(factura3);
                 await _context.SaveChangesAsync();
             }
+
         }
     }
+
 }

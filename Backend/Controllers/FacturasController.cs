@@ -76,9 +76,9 @@ namespace Backend.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteFactura(long id)
+        public async Task<IActionResult> DeleteFactura(long id, long idFactura)
         {
-            var factura = await _context.Facturas.FindAsync(id);
+            var factura = await _context.Facturas.FindAsync(id, idFactura);
             if (factura == null)
             {
                 return NotFound();
