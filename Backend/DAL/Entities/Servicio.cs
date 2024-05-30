@@ -8,6 +8,11 @@ namespace Backend.DAL.Entities
         public long Id { get; set; }
         [Required]
         public DateTime Fecha { get; set; }
+        
+        public string ObtenerFechaFormato()
+        {
+            return Fecha.ToString("yyyy-MM-dd");
+        }
         [Required]
         public string TipoServicio { get; set; }
         [Required]

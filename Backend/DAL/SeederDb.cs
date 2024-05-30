@@ -137,7 +137,7 @@ namespace Backend.DAL
                 {
                     new Servicio
                     {
-                        Fecha = DateTime.Now,
+                        Fecha = DateTime.Now.Date,
                         TipoServicio = "Consulta",
                         Precio = 35000,
                         Descripcion = "Consulta veterinaria estándar",
@@ -145,7 +145,7 @@ namespace Backend.DAL
                     },
                     new Servicio
                     {
-                        Fecha = DateTime.Now,
+                        Fecha = DateTime.Now.Date,
                         TipoServicio = "Peluquería",
                         Precio = 40000,
                         Descripcion = "Corte de pelo y baño para mascotas",
@@ -153,7 +153,7 @@ namespace Backend.DAL
                     },
                     new Servicio
                     {
-                        Fecha = DateTime.Now,
+                        Fecha = DateTime.Now.Date,
                         TipoServicio = "Baño General",
                         Precio = 30000,
                         Descripcion = "Baño y limpieza general para mascotas",
@@ -161,7 +161,7 @@ namespace Backend.DAL
                     },
                     new Servicio
                     {
-                        Fecha = DateTime.Now,
+                        Fecha = DateTime.Now.Date,
                         TipoServicio = "Desparasitación",
                         Precio = 20000,
                         Descripcion = "Tratamiento para eliminar parásitos internos y externos",
@@ -169,7 +169,7 @@ namespace Backend.DAL
                     },
                     new Servicio
                     {
-                        Fecha = DateTime.Now,
+                        Fecha = DateTime.Now.Date,
                         TipoServicio = "Vacunación",
                         Precio = 35000,
                         Descripcion = "Vacunación preventiva para mascotas",
@@ -237,27 +237,28 @@ namespace Backend.DAL
                     new Gerente
                     {
                         UsuarioId = 1001686120,
-                        FechaContrato = DateTime.Now
+                        FechaContrato = DateTime.Now.Date
                     },
                     new Gerente
                     {
                         UsuarioId = 1001686119,
-                        FechaContrato = DateTime.Now
+                        FechaContrato = DateTime.Now.Date
                     },
                     new Gerente
                     {
                         UsuarioId = 21158515,
-                        FechaContrato = DateTime.Now
+                        FechaContrato = DateTime.Now.Date
                     },
                     new Gerente
                     {
                         UsuarioId = 1001686123,
-                        FechaContrato = DateTime.Now
+                        FechaContrato = DateTime.Now.Date
                     }
                 };
 
                 _context.Gerentes.AddRange(gerentes);
                 await _context.SaveChangesAsync();
+              
             }
         }
 
