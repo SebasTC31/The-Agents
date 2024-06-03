@@ -33,7 +33,7 @@ namespace Backend.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Servicio>> GetServiciosById(long id)
         {
-            var servicio = await _context.Servicios.FirstOrDefaultAsync(s => s.Id == id);
+            var servicio = await _context.Servicios.Include(s => s.Factura).FirstOrDefaultAsync(s => s.Id == id);
 
             if (servicio == null) return NotFound();
 
@@ -50,48 +50,47 @@ namespace Backend.Controllers
         }
 
         [HttpPost("/Create")]
-        public async Task<ActionResult<Servicio>> CreateServicio(Servicio servicio)
+        public async Task<ActionResult<Servicio>> CreateServicio(Servicio servicioDto)
         {
-            if (!ModelState.IsValid)
+            // Crear un nuevo objeto Servicio basado en los datos de la solicitud DTO
+            var servicio = new Servicio
             {
-                return BadRequest(ModelState);
-            }
-
-            // Obtener el empleado existente de la base de datos
-            var empleado = await _context.Empleados.FindAsync(servicio.IdEmpleado.FirstOrDefault().Id);
-
-            // Verificar si el empleado existe
-            if (empleado == null)
-            {
-                return BadRequest("El empleado especificado no existe.");
-            }
-
-            // Asociar el empleado al servicio
-            servicio.IdEmpleado = new List<Empleado> { empleado };
-
-            // Crear una factura asociada al nuevo servicio
-            Factura factura = new Factura
-            {
-                Fecha = DateTime.Now,
-                ValorTotal = servicio.Precio * servicio.CantServicio,
-                MetodoPago = "Efectivo", // Puedes cambiar esto según lo que necesites
-                Descripcion = "Factura por servicio",
-                Estado = "Pendiente", // O cualquier otro estado predeterminado
-                Servicios = new List<Servicio> { servicio } // Asociar el servicio a la factura
+                Fecha = servicioDto.Fecha,
+                TipoServicio = servicioDto.TipoServicio,
+                Precio = servicioDto.Precio,
+                Descripcion = servicioDto.Descripcion,
+                CantServicio = servicioDto.CantServicio,
+                DescDiagnostico = servicioDto.DescDiagnostico,
+                PrescDiagnostico = servicioDto.PrescDiagnostico,
+                // Cargar el Empleado existente desde la base de datos usando el ID proporcionado
+                IdEmpleado = servicioDto.IdEmpleado,
+                //Empleado = await _context.Empleados.FindAsync(servicioDto.IdEmpleado),
+                // Crear un nuevo objeto Factura basado en los datos de la solicitud DTO
             };
 
-            // Agregar la factura a la base de datos
-            _context.Facturas.Add(factura);
-
-            // Agregar el nuevo servicio a la base de datos
             _context.Servicios.Add(servicio);
+            await _context.SaveChangesAsync();
 
-            // Crear los requerimientos asociados al servicio
-            foreach (var requerimiento in servicio.Requiere)
+            servicioDto.Factura.IdServicio = servicio.Id;
+
+            var factura = new Factura
             {
-                _context.Requieres.Add(requerimiento);
-            }
+                Id = servicioDto.Factura.Id,
+                IdServicio = servicioDto.Id,
+                Fecha = servicioDto.Factura.Fecha,
+                ValorTotal = servicioDto.Factura.ValorTotal,
+                MetodoPago = servicioDto.Factura.MetodoPago,
+                Descripcion = servicioDto.Factura.Descripcion,
+                Estado = servicioDto.Factura.Estado,
+                // Cargar el Acudiente existente desde la base de datos usando el ID proporcionado
+                AcudienteId = servicioDto.Factura.AcudienteId,
+                Acudiente = await _context.Acudientes.FindAsync(servicioDto.Factura.AcudienteId)
+            };
 
+            factura.IdServicio = servicio.Id;
+
+            // Agregar el nuevo Servicio al contexto y guardar los cambios en la base de datos
+            _context.Facturas.Add(factura);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetServiciosById), new { id = servicio.Id }, servicio);
