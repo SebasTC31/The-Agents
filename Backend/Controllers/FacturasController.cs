@@ -37,6 +37,16 @@ namespace Backend.Controllers
             return Ok(factura);
         }
 
+        [HttpGet("/ByService/{idServicio}")]
+        public async Task<ActionResult<Factura>> GetFacturaByIdService(long idServicio)
+        {
+            var factura = await _context.Facturas.FirstOrDefaultAsync(f => f.IdServicio == idServicio);
+
+            if (factura == null) return NotFound();
+
+            return Ok(factura);
+        }
+
         [HttpPost]
         public async Task<ActionResult<Factura>> PostFactura(Factura factura)
         {

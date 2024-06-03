@@ -49,6 +49,54 @@ namespace Backend.Controllers
             return CreatedAtAction(nameof(GetServiciosById), new { id = servicio.Id }, servicio);
         }
 
+        [HttpPost("/Create")]
+        public async Task<ActionResult<Servicio>> CreateServicio(Servicio servicio)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            // Obtener el empleado existente de la base de datos
+            var empleado = await _context.Empleados.FindAsync(servicio.IdEmpleado.FirstOrDefault().Id);
+
+            // Verificar si el empleado existe
+            if (empleado == null)
+            {
+                return BadRequest("El empleado especificado no existe.");
+            }
+
+            // Asociar el empleado al servicio
+            servicio.IdEmpleado = new List<Empleado> { empleado };
+
+            // Crear una factura asociada al nuevo servicio
+            Factura factura = new Factura
+            {
+                Fecha = DateTime.Now,
+                ValorTotal = servicio.Precio * servicio.CantServicio,
+                MetodoPago = "Efectivo", // Puedes cambiar esto según lo que necesites
+                Descripcion = "Factura por servicio",
+                Estado = "Pendiente", // O cualquier otro estado predeterminado
+                Servicios = new List<Servicio> { servicio } // Asociar el servicio a la factura
+            };
+
+            // Agregar la factura a la base de datos
+            _context.Facturas.Add(factura);
+
+            // Agregar el nuevo servicio a la base de datos
+            _context.Servicios.Add(servicio);
+
+            // Crear los requerimientos asociados al servicio
+            foreach (var requerimiento in servicio.Requiere)
+            {
+                _context.Requieres.Add(requerimiento);
+            }
+
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(GetServiciosById), new { id = servicio.Id }, servicio);
+        }
+
         [HttpPut("{id}")]
         public async Task<IActionResult> PutServicio(long id, Servicio servicio)
         {

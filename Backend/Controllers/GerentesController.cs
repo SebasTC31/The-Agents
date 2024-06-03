@@ -20,7 +20,7 @@ namespace Backend.Controllers
         [Route("Get/Gerentes")]
         public async Task<ActionResult<IEnumerable<Gerente>>> GetEmpleados()
         {
-            var gerentes = await _context.Gerentes.ToListAsync();
+            var gerentes = await _context.Gerentes.Include(g => g.Usuario).ToListAsync();
 
             if (gerentes == null) return NotFound();
 
